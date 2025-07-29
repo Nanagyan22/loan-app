@@ -24,34 +24,24 @@ XGBoost for advanced gradient boosting
 Matplotlib & Seaborn for static visualizations
 Plotly for interactive charts and dashboards
 Meet the Team
-0
 Bernardine Akorfa Gawu
 Data Scientist
-
 ID: 22253324
 
-0
 Abigail Amissah
 ML Engineer
-
 ID: 22253929
 
-0
 Samuel Asare
 Full Stack Developer
-
 ID: 22253156
 
-0
 Afful Francis Gyan
 Data Analyst
-
 ID: 22253332
 
-0
 Gloria Odamtten
 Project Manager
-
 ID: 22252377
 
 🎯 Project Objective
@@ -93,4 +83,6 @@ Feature Selection - Identify the most important predictive features
 Model Training - Train and compare multiple ML algorithms
 Model Tuning - Optimize hyperparameters for best performance
 Live Prediction - Make real-time loan default predictions
+
+
 
