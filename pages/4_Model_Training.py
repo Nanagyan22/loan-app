@@ -100,8 +100,26 @@ def visualize_coefficients(model, feature_names, model_type):
         feature_names (list): List of feature names.
         model_type (str): Type of model ('linear', 'lasso', 'logistic').
     """
-    if model_type not in ['linear', 'lasso', 'logistic']:
-        st.warning("Coefficient visualization is only available for linear, Lasso, and Logistic Regression models.")
+    if model_type not in ['linear', 'lasso', 'logistic', 'random_forest']:
+        st.warning("Coefficient visualization is only available for linear, Lasso, Logistic Regression, and Random Forest models.")
+        return
+
+    if model_type == 'random_forest':
+        if hasattr(model, 'feature_importances_'):
+            importances = model.feature_importances_
+            feature_importance_df = pd.DataFrame({'Feature': feature_names, 'Importance': importances})
+            feature_importance_df = feature_importance_df.sort_values('Importance', ascending=False)
+
+            fig = px.bar(
+                feature_importance_df,
+                x='Importance', y='Feature',
+                orientation='h',
+                title='Random Forest Feature Importances',
+                labels={'Importance': 'Importance Score', 'Feature': 'Feature Name'}
+            )
+            st.plotly_chart(fig, use_container_width=True)
+        else:
+            st.warning("Random Forest model does not have feature importances to visualize.")
         return
 
     if hasattr(model, 'coef_'):
@@ -202,8 +220,8 @@ def main():
     st.markdown("## 📁 Data Loading")
 
     # Load data from session state if available
-    if 'final_dataset' in st.session_state:
-        df = st.session_state.final_dataset
+    if 'modeling_data' in st.session_state:
+        df = st.session_state.modeling_data
         st.success("✅ Loaded final dataset from Feature Selection.")
     else:
         df = None
@@ -219,7 +237,7 @@ def main():
         try:
             df = pd.read_csv(uploaded_file)
             st.success(f"✅ Dataset loaded successfully! Shape: {df.shape}")
-            st.session_state.final_dataset = df  # Save to session state
+            st.session_state.modeling_data = df  # Save to session state
         except Exception as e:
             st.error(f"Error loading file: {str(e)}")
             return
@@ -286,15 +304,24 @@ def main():
 
     # Feature Selection Choice
     st.markdown("### ⚙️ Feature Selection Choice")
-    feature_selection_options = ['All Features']  # Always include "All Features"
+
+    # Load available feature selection methods from session state
+    default_feature_selections = ["Best Subset", "Forward Stepwise", "Lasso", "Random Forest"]
+    available_feature_selections = []
+
     if 'feature_selection_results' in st.session_state:
-        feature_selection_options.extend(st.session_state.feature_selection_results.keys())
+        # Only add the keys if the corresponding value has 'features'
+        for key, value in st.session_state.feature_selection_results.items():
+            if 'features' in value:
+                available_feature_selections.append(key)
+    else:
+        available_feature_selections = default_feature_selections
 
     selected_feature_selections = st.multiselect(
         "Select Feature Selection Methods to Use:",
-        options=feature_selection_options,
-        default=['All Features'],
-        help="Choose which feature selection methods to use for model training. 'All Features' will use all columns in the original dataset."
+        options=available_feature_selections,
+        default=available_feature_selections if not 'feature_selection_results' in st.session_state else [],
+        help="Choose which feature selection methods to use for model training.",
     )
 
     # Store feature selection results in session state
@@ -305,18 +332,21 @@ def main():
         with st.spinner("Training models..."):
             model_results = []  # Reset model_results for each training run
             for selection_name in selected_feature_selections:
-                if selection_name == "All Features":
-                    X = df.drop(columns=[target_col])
+                if 'feature_selection_results' in st.session_state and selection_name in st.session_state.feature_selection_results:
+                    selected_features = st.session_state.feature_selection_results[selection_name]['features']
+                    X = df[selected_features]
                     y = df[target_col]
-                    feature_names = X.columns.tolist()
+                    feature_names = selected_features
                 else:
-                    if 'feature_selection_results' in st.session_state and selection_name in st.session_state.feature_selection_results:
-                        selected_features = st.session_state.feature_selection_results[selection_name]['features']
-                        X = df[selected_features]
+                    # Handle the case where feature_selection_results is not in st.session_state
+                    # or the selection_name is not a key in feature_selection_results
+                    if selection_name in default_feature_selections:
+                        st.warning(f"'{selection_name}' was selected, but no feature selection results were found.  Using all features instead.")
+                        X = df.drop(columns=[target_col])
                         y = df[target_col]
-                        feature_names = selected_features
+                        feature_names = X.columns.tolist()
                     else:
-                        st.error(f"Feature selection method '{selection_name}' not found in session state.")
+                        st.error(f"Feature selection method '{selection_name}' not found in session state or does not have 'features' key.")
                         continue  # Skip to the next selection
 
                 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=42)
@@ -337,7 +367,10 @@ def main():
                     'Metrics': metrics,
                     'Training Time': training_time,
                     'Model': model,
-                    'Feature Names': feature_names
+                    'Feature Names': feature_names,
+                    'X_test': X_test,
+                    'y_test': y_test,
+                    'y_pred': y_pred
                 })
 
             st.success("Models trained!")
@@ -364,25 +397,24 @@ def main():
         # Visualize Coefficients for the First Model
         st.markdown("### 📈 Regression Coefficients (First Model)")
         if model_results:
-            if model_results[0]['Model Type'] in ['linear', 'lasso', 'logistic']:
+            if model_results[0]['Model Type'] in ['linear', 'lasso', 'logistic', 'random_forest']:
                 visualize_coefficients(model_results[0]['Model'], model_results[0]['Feature Names'], model_results[0]['Model Type'])
             else:
                 st.warning("Coefficient visualization is not available for this model type.")
 
-        # Predictions vs Actual for the First Model (Regression)
+        # Predictions vs Actual for Each Model (Regression)
         if task_type == 'regression':
-            st.markdown("#### 📉 Predictions vs Actual Values (First Model)")
-            if model_results:
-                X = df[model_results[0]['Feature Names']]
-                X_train, X_test, y_train, y_test = train_test_split(X, df[target_col], test_size=test_size, random_state=42)
-                y_pred = model_results[0]['Model'].predict(X_test)
-                predictions_df = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred})
+            st.markdown("#### 📉 Predictions vs Actual Values")
+            for i, result in enumerate(model_results):
+                st.markdown(f"##### {result['Feature Selection']} - {result['Model Type']}")
+                predictions_df = pd.DataFrame({'Actual': result['y_test'], 'Predicted': result['y_pred']})
                 fig = px.scatter(
                     predictions_df, x='Actual', y='Predicted',
                     title='Actual vs Predicted Values',
                     labels={'Actual': 'Actual Value', 'Predicted': 'Predicted Value'}
                 )
-                st.plotly_chart(fig, use_container_width=True)
+                fig.update_traces(marker=dict(color=['blue'] * len(predictions_df)), name='Data Points')  # Set color to blue
+                st.plotly_chart(fig, use_container_width=True, key=f"predictions_plot_{i}") # Add key to fix duplicate element ID
 
         # ROC Curve for the First Model (Classification)
         if task_type == 'classification':
@@ -437,10 +469,12 @@ def main():
             }
             st.success("Data saved for Evaluation Page!")
 
-    # Button to navigate to the next step (Model Deployment)
-    if st.button("Proceed to Model Deployment"):
-        st.session_state.next_page = "model_deployment"
-        st.rerun()
+    st.markdown("---")
+    st.markdown("Are you ready to evaluate your model?")
+    if st.button("Click here and load the data to Model Evaluation"):
+        st.session_state['model_evaluation_data'] = df.copy()
+        st.success("Data saved for Model Evaluation!")
+        st.info("You can now navigate to the Model Evaluation page to use this data.")
 
 
 if __name__ == "__main__":
