@@ -364,7 +364,7 @@ def main():
     st.markdown('<h2 class="sub-header">🏠 Overview</h2>', unsafe_allow_html=True)
     st.markdown("""
     Welcome to our **Loan Default Prediction Web App** – an interactive machine learning application designed for 
-    academic purposes in Applied Regression & Machine Learning. This application simulates a real-world loan system 
+    academic purposes in Regression & Machine Learning. This application simulates a real-world loan system 
     and predicts loan default amounts using comprehensive borrower history and financial behavior analysis.
 
     Our app provides hands-on experience with the complete machine learning pipeline, from data exploration to 
@@ -383,8 +383,7 @@ def main():
         - **Explore and visualize** comprehensive loan datasets
         - **Preprocess and clean** data for optimal model performance
         - **Perform feature selection** using statistical methods
-        - **Train and compare models** (Linear Regression, Random Forest, XGBoost)
-        - **Tune models** with GridSearchCV for optimal hyperparameters
+        - **Train and compare models** (Linear Regression, Random Forest)
         - **Generate live predictions** for new loan applications
         """)
 
@@ -395,7 +394,6 @@ def main():
         - **Python & Streamlit** for web application framework
         - **Pandas & NumPy** for efficient data manipulation
         - **Scikit-learn** for machine learning algorithms
-        - **XGBoost** for advanced gradient boosting
         - **Matplotlib & Seaborn** for static visualizations
         - **Plotly** for interactive charts and dashboards
         """)
@@ -437,7 +435,7 @@ def main():
         st.markdown("""
         <div class="project-objective-box">
             <p class="project-objective-text">
-            Our project simulates a comprehensive <strong>loan management system</strong> using regression-based 
+            Our project simulates a comprehensive <strong>loan prediction system</strong> using regression-based 
             machine learning techniques. The application predicts default amounts based on historical borrower data, 
             helping financial institutions assess loan risks more effectively and make informed lending decisions.
             </p>
@@ -553,7 +551,6 @@ def main():
             <li><strong>Data Preprocessing</strong> - Clean and prepare data for modeling</li>
             <li><strong>Feature Selection</strong> - Identify the most important predictive features</li>
             <li><strong>Model Training</strong> - Train and compare multiple ML algorithms</li>
-            <li><strong>Model Tuning</strong> - Optimize hyperparameters for best performance</li>
             <li><strong>Live Prediction</strong> - Make real-time loan default predictions</li>
         </ul>
     </div>
