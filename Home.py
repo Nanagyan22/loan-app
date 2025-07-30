@@ -344,10 +344,7 @@ def main():
     st.markdown(
         f'''
         <div class="hero-section" style="text-align: center; padding: 1rem 0;">
-            <div class="company-logo" style="display: flex; align-items: center; justify-content: center;">
-                {"<img src='" + logo_base64 + "' alt='Company Logo' style='height: 100px; margin-right: 15px;'> " if logo_base64 else ""}
-                <span class="logo-text" style="font-size: 3rem; font-weight: bold; color: #f7f5f5;">Data Insights</span>
-            </div>
+            <span class="logo-text" style="font-size: 3rem; font-weight: bold; color: #f7f5f5;">Data Insights</span>
             <h1 class="hero-title" style="margin-top: 0.5rem;">Loan Default Prediction System</h1>
             <p class="hero-subtitle" style="font-size: 1.2rem; color: #eee;">Transforming Information Into Actions</p>
         </div>
