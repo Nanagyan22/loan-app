@@ -560,7 +560,7 @@ def main():
     st.markdown("""
     <div class="footer">
         <p><strong>Applied Regression & Machine Learning Project</strong></p>
-        <p>Academic Year 2025-2026 | Built with ❤️ using Streamlit and Python</p>
+        <p>UGBS | Academic Year 2025-2026 | Built with ❤️ using Streamlit and Python</p>
     </div>
     """, unsafe_allow_html=True)
 
