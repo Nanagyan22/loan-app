@@ -238,6 +238,8 @@ def main():
         st.session_state.preprocessed_data = None
     if 'final_dataset' not in st.session_state:
         st.session_state.final_dataset = None
+    if 'feature_selection_results' not in st.session_state:
+        st.session_state.feature_selection_results = {}
 
     # Data Loading Section
     st.markdown("## 📁 Data Loading")
@@ -246,8 +248,8 @@ def main():
 
     with col1:
         # Load data from session state if available
-        if st.session_state.preprocessed_data is not None:
-            df = st.session_state.preprocessed_data
+        if 'processed_data' in st.session_state and st.session_state.processed_data is not None:
+            df = st.session_state.processed_data
             st.success("✅ Loaded preprocessed data from previous step.")
         else:
             df = None  # Initialize df to None
@@ -321,11 +323,6 @@ def main():
                     'Correlation': importance_stats['correlation'][X.columns],
                     'Mutual Info': importance_stats['mutual_info'][X.columns],
                 })
-
-                # Normalize scores for comparison
-                for col in ['Correlation', 'Mutual Info']:
-                    comparison_df[f'{col}_norm'] = (comparison_df[col] - comparison_df[col].min()) / (
-                                comparison_df[col].max() - comparison_df[col].min())
 
                 st.dataframe(comparison_df.round(4))
 
@@ -401,6 +398,7 @@ def main():
                     # Best Subset Selection
                     if 'Best Subset Selection' in subset_methods:
                         best_features, best_model, results_df_bss = best_subset_selection(X, y, max_features_bss)
+                        st.session_state.feature_selection_results['Best Subset'] = {'features': best_features}  # Store in session state
                         st.session_state.best_features = best_features
                         st.session_state.results_df_bss = results_df_bss
                     else:
@@ -410,6 +408,7 @@ def main():
                     # Forward Stepwise Selection
                     if 'Forward Stepwise Selection' in subset_methods:
                         selected_features, best_model, results_df_fss = forward_stepwise_selection(X, y, max_features_fss)
+                        st.session_state.feature_selection_results['Forward Stepwise'] = {'features': selected_features}  # Store in session state
                         st.session_state.selected_features = selected_features
                         st.session_state.results_df_fss = results_df_fss
                     else:
@@ -446,6 +445,7 @@ def main():
                         lasso_cv.fit(X_scaled, y)
                         selected_mask = np.abs(lasso_cv.coef_) > 1e-6
                         selected_features_lasso = X.columns[selected_mask].tolist()
+                        st.session_state.feature_selection_results['Lasso'] = {'features': selected_features_lasso}  # Store in session state
                         st.session_state.selected_features_lasso = selected_features_lasso
                     else:
                         st.session_state.selected_features_lasso = None
@@ -457,6 +457,7 @@ def main():
                         importance_threshold = 0.01  # Fixed threshold for simplicity
                         selected_mask = rf.feature_importances_ > importance_threshold
                         selected_features_rf = X.columns[selected_mask].tolist()
+                        st.session_state.feature_selection_results['Random Forest'] = {'features': selected_features_rf}  # Store in session state
                         st.session_state.selected_features_rf = selected_features_rf
                     else:
                         st.session_state.selected_features_rf = None
@@ -488,7 +489,8 @@ def main():
                     'AIC': aic,
                     'BIC': bic,
                     '#Features': len(best_features),
-                    'Notes': 'Best on adj R² & AIC'
+                    'Notes': 'Best on adj R² & AIC',
+                    'Algorithm': 'Subset Selection'
                 })
 
             # Forward Stepwise Selection
@@ -506,7 +508,8 @@ def main():
                     'AIC': aic,
                     'BIC': bic,
                     '#Features': len(selected_features),
-                    'Notes': ''
+                    'Notes': '',
+                    'Algorithm': 'Stepwise Selection'
                 })
 
             # Lasso
@@ -524,7 +527,8 @@ def main():
                     'AIC': aic,
                     'BIC': bic,
                     '#Features': len(selected_features_lasso),
-                    'Notes': 'Sparse, robust'
+                    'Notes': 'Sparse, robust',
+                    'Algorithm': 'Embedded'
                 })
 
             # Random Forest
@@ -542,7 +546,8 @@ def main():
                     'AIC': aic,
                     'BIC': bic,
                     '#Features': len(selected_features_rf),
-                    'Notes': 'Best RMSE, nonlinear'
+                    'Notes': 'Best RMSE, nonlinear',
+                    'Algorithm': 'Embedded'
                 })
 
             # Determine best method
@@ -601,52 +606,55 @@ def main():
             col1, col2 = st.columns(2)
 
             with col1:
-                selection_method = st.selectbox(
-                    "Selection strategy:",
+                selection_methods = st.multiselect(
+                    "Select feature selection algorithms:",
                     [
                         'Best Subset',
                         'Forward Stepwise',
                         'Lasso',
                         'Random Forest',
                         'Custom Selection'
-                    ]
+                    ],
+                    default=['Best Subset']
                 )
 
-                if selection_method == 'Best Subset':
-                    if 'best_features' in st.session_state and st.session_state.best_features:
-                        final_features = st.session_state.best_features
-                    else:
-                        st.warning("Run Best Subset Selection first.")
-                        final_features = []
+                final_features = []
+                for method in selection_methods:
+                    if method == 'Best Subset':
+                        if 'best_features' in st.session_state and st.session_state.best_features:
+                            final_features.extend(st.session_state.best_features)
+                        else:
+                            st.warning("Run Best Subset Selection first.")
 
-                elif selection_method == 'Forward Stepwise':
-                    if 'selected_features' in st.session_state and st.session_state.selected_features:
-                        final_features = st.session_state.selected_features
-                    else:
-                        st.warning("Run Forward Stepwise Selection first.")
-                        final_features = []
+                    elif method == 'Forward Stepwise':
+                        if 'selected_features' in st.session_state and st.session_state.selected_features:
+                            final_features.extend(st.session_state.selected_features)
+                        else:
+                            st.warning("Run Forward Stepwise Selection first.")
 
-                elif selection_method == 'Lasso':
-                    if 'selected_features_lasso' in st.session_state and st.session_state.selected_features_lasso:
-                        final_features = st.session_state.selected_features_lasso
-                    else:
-                        st.warning("Run Lasso Feature Selection first.")
-                        final_features = []
+                    elif method == 'Lasso':
+                        if 'selected_features_lasso' in st.session_state and st.session_state.selected_features_lasso:
+                            final_features.extend(st.session_state.selected_features_lasso)
+                        else:
+                            st.warning("Run Lasso Feature Selection first.")
 
-                elif selection_method == 'Random Forest':
-                    if 'selected_features_rf' in st.session_state and st.session_state.selected_features_rf:
-                        final_features = st.session_state.selected_features_rf
-                    else:
-                        st.warning("Run Random Forest Feature Selection first.")
-                        final_features = []
+                    elif method == 'Random Forest':
+                        if 'selected_features_rf' in st.session_state and st.session_state.selected_features_rf:
+                            final_features.extend(st.session_state.selected_features_rf)
+                        else:
+                            st.warning("Run Random Forest Feature Selection first.")
 
-                else:  # Custom Selection
-                    all_features = list(X.columns)
-                    final_features = st.multiselect(
-                        "Select features manually:",
-                        all_features,
-                        default=all_features[:min(5, len(all_features))]
-                    )
+                    elif method == 'Custom Selection':
+                        all_features = list(X.columns)
+                        custom_features = st.multiselect(
+                            "Select features manually:",
+                            all_features,
+                            default=all_features[:min(5, len(all_features))]
+                        )
+                        final_features.extend(custom_features)
+
+                # Remove duplicates
+                final_features = list(set(final_features))
 
             with col2:
                 st.markdown("#### Selected Features Summary")
@@ -742,7 +750,15 @@ def main():
             if 'final_dataset' in st.session_state and st.session_state.final_dataset is not None:
                 st.markdown("#### Save for Model Training")
                 if st.button("💾 Save for Model Training"):
+                    st.session_state.modeling_data = st.session_state.final_dataset.copy()
                     st.success("Data saved for Model Training!")
+
+    st.markdown("---")
+    st.markdown("Are you ready to train your data?")
+    if st.button("Click here and load the data to Model Training"):
+        st.session_state['model_training_data'] = df.copy()
+        st.success("Data saved for Model Training!")
+        st.info("You can now navigate to the Model Training page to use this data.")
 
 
 def r2_score(y_true, y_pred):
