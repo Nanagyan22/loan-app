@@ -379,7 +379,7 @@ def main():
         This application allows users to:
         - **Explore and visualize** comprehensive loan datasets
         - **Preprocess and clean** data for optimal model performance
-        - **Perform feature selection** using statistical methods
+        - **Perform feature selection** using Best Subset Selection
         - **Train and compare models** (Linear Regression, Random Forest)
         - **Generate live predictions** for new loan applications
         """)
@@ -461,7 +461,7 @@ def main():
         <div class="tools-tech-item">
             <div class="tools-tech-icon">🧠</div>
             <h4 class="tools-tech-title">Machine Learning</h4>
-            <p class="tools-tech-description">Scikit-learn, XGBoost</p>
+            <p class="tools-tech-description">Scikit-learn</p>
         </div>
         <div class="tools-tech-item">
             <div class="tools-tech-icon">📈</div>
