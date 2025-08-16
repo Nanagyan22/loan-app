@@ -69,7 +69,7 @@ This project demonstrates a full **machine learning workflow for loan default pr
 - Evaluate using **RMSE** and **R²**  
 - Visualize predicted vs actual values
 
-![Model Evaluation](img/best.png)
+![Model Evaluation](img/img/best.png)
 
 ### 5. Interactive Prediction
 - Users input custom feature values to predict loan default amount  
