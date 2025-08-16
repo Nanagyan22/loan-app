@@ -54,6 +54,9 @@ This project demonstrates a full **machine learning workflow for loan default pr
 - Normalize/standardize numerical variables  
 
 ![Preprocessing](Preprocessing.png)
+![Preprocessing](Boxplt.png)
+![Preprocessing](Categorial.png)
+![Preprocessing](Duplicates.png)
 
 ### 3. Feature Selection
 - **Best Subset Selection** and **Forward Stepwise Selection** are implemented.  
@@ -66,7 +69,7 @@ This project demonstrates a full **machine learning workflow for loan default pr
 - Evaluate using **RMSE** and **R²**  
 - Visualize predicted vs actual values
 
-![Model Evaluation](Evaluate.png)
+![Model Evaluation](best.png)
 
 ### 5. Interactive Prediction
 - Users input custom feature values to predict loan default amount  
@@ -115,7 +118,6 @@ The app is deployed on **Streamlit Community Cloud**:
 `![Prediction](user3.png)`  
 
 ---
----
 
 ## Conclusions & Recommendations
 - The app demonstrates a complete **machine learning workflow**, providing reliable predictions of loan default amounts.  
@@ -138,6 +140,5 @@ For questions or collaborations, feel free to reach out!
 [![LinkedIn](https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&labelColor=&style=for-the-badge)](https://https://www.linkedin.com/in/francis-afful-gyan-2b27a5153/)  
 
 
-## Thank You
-![Thank You](Thankyou.jpg)
+![Thank You](Thankyou1.jpg)
 
