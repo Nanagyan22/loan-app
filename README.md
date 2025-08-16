@@ -1,7 +1,7 @@
 # Interactive Loan Default Prediction Web App Using Streamlit
 *Leveraging Machine Learning to Predict Loan Default Amounts for Better Financial Decision-Making*
 
-![Project Banner](banner-image.png)
+![Project Banner](img/banner-image.png)
 
 ---
 
@@ -13,7 +13,7 @@ This project uses **synthetic or anonymized data** for demonstration purposes. N
 ## Introduction
 The Loan Default Prediction Web App is a multi-page interactive application built with Streamlit. It allows users to **analyze datasets, preprocess data, train regression models, evaluate performance, and make custom predictions**. The app simulates real-world financial risk modeling and supports decision-making for banking and loan management.
 
-![Home Page](Home.png)
+![Home Page](img/Home.png)
 
 ---
 
@@ -36,9 +36,9 @@ This project demonstrates a full **machine learning workflow for loan default pr
 - Model training and evaluation  
 - Interactive prediction for custom user input  
 
-![Data Overview](Overview.png)  
-![Correlation Matrix](Correlation.png)
-![Correlation Matrix](Overview_2.png).
+![Data Overview](img/Overview.png)  
+![Correlation Matrix](img/Correlation.png)
+![Correlation Matrix](img/Overview_2.png).
 
 ---
 
@@ -53,33 +53,33 @@ This project demonstrates a full **machine learning workflow for loan default pr
 - Encode categorical variables  
 - Normalize/standardize numerical variables  
 
-![Preprocessing](Preprocessing.png)
-![Preprocessing](Boxplt.png)
-![Preprocessing](Categorial.png)
-![Preprocessing](Duplicates.png)
+![Preprocessing](img/Preprocessing.png)
+![Preprocessing](img/Boxplt.png)
+![Preprocessing](img/Categorial.png)
+![Preprocessing](img/Duplicates.png)
 
 ### 3. Feature Selection
 - **Best Subset Selection** and **Forward Stepwise Selection** are implemented.  
 - Outputs are compared to select optimal predictive features.
 
-![Feature Selection](Featuremethod.png)
+![Feature Selection](img/Featuremethod.png)
 
 ### 4. Model Training & Evaluation
 - Train regression models using selected features  
 - Evaluate using **RMSE** and **R²**  
 - Visualize predicted vs actual values
 
-![Model Evaluation](best.png)
+![Model Evaluation](img/best.png)
 
 ### 5. Interactive Prediction
 - Users input custom feature values to predict loan default amount  
 - Display predicted value dynamically
 
-![Interactive Prediction](user1.png)
+![Interactive Prediction](img/user1.png)
 
-![Interactive Prediction](User4.png)
+![Interactive Prediction](img/User4.png)
 
-![Interactive Prediction](user3.png)
+![Interactive Prediction](img/user3.png)
 
 ---
 
@@ -103,19 +103,19 @@ The app is deployed on **Streamlit Community Cloud**:
 
 ## Project Screenshots
 - **Landing Page / Home Screen**  
-![Home](Home.png)  
+![Home](img/Home.png)  
 
 - **Data Overview and Visualization**  
-![Data Overview](Overview_2.png)  
+![Data Overview](img/Overview_2.png)  
 
 - **Preprocessing Page**  
-![Preprocessing](Preprocessing.png)  
+![Preprocessing](img/Preprocessing.png)  
 
 - **Feature Selection**  
-![Feature Selection](Featureselection.png)  
+![Feature Selection](img/Featureselection.png)  
 
 - **Prediction Page**  
-![Prediction](user3.png)  
+![Prediction](img/user3.png)  
 
 ---
 
@@ -140,5 +140,5 @@ For questions or collaborations, feel free to reach out!
 [![LinkedIn](https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&labelColor=&style=for-the-badge)](https://https://www.linkedin.com/in/francis-afful-gyan-2b27a5153/)  
 
 
-![Thank You](Thankyou1.jpg)
+![Thank You](img/Thankyou1.jpg)
 
