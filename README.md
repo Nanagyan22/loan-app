@@ -23,7 +23,6 @@ The Loan Default Prediction Web App is a multi-page interactive application buil
 - [Tools and Technologies](#tools-and-technologies)
 - [Deployment](#deployment)
 - [Project Screenshots](#project-screenshots)
-- [Video Demo](#video-demo)
 - [Future Enhancements](#future-enhancements)
 - [Contact](#contact)
 
@@ -39,6 +38,7 @@ This project demonstrates a full **machine learning workflow for loan default pr
 
 ![Data Overview](Overview.png)  
 ![Correlation Matrix](Correlation.png)
+![Correlation Matrix](Overview_2.png).
 
 ---
 
@@ -59,7 +59,7 @@ This project demonstrates a full **machine learning workflow for loan default pr
 - **Best Subset Selection** and **Forward Stepwise Selection** are implemented.  
 - Outputs are compared to select optimal predictive features.
 
-![Feature Selection](Feature method.png)
+![Feature Selection](Featuremethod.png)
 
 ### 4. Model Training & Evaluation
 - Train regression models using selected features  
@@ -72,7 +72,11 @@ This project demonstrates a full **machine learning workflow for loan default pr
 - Users input custom feature values to predict loan default amount  
 - Display predicted value dynamically
 
-![Interactive Prediction](path/to/interactive-screenshot.png)
+![Interactive Prediction](user1.png)
+
+![Interactive Prediction](User4.png)
+
+![Interactive Prediction](user3.png)
 
 ---
 
@@ -92,32 +96,31 @@ This project demonstrates a full **machine learning workflow for loan default pr
 The app is deployed on **Streamlit Community Cloud**:  
 [Click here to access the live app](https://loan-appp.streamlit.app/)  
 
-![Deployed App](path/to/deployed-app.png)
-
 ---
 
 ## Project Screenshots
 - **Landing Page / Home Screen**  
-`![Home](path/to/homepage.png)`  
+`![Home](Home.png)`  
 
 - **Data Overview and Visualization**  
-`![Data Overview](path/to/data-overview.png)`  
+`![Data Overview](Overview_2.png)`  
 
 - **Preprocessing Page**  
-`![Preprocessing](path/to/preprocessing.png)`  
+`![Preprocessing](Preprocessing.png)`  
 
 - **Feature Selection**  
-`![Feature Selection](path/to/feature-selection.png)`  
+`![Feature Selection](Featureselection.png)`  
 
 - **Prediction Page**  
-`![Prediction](path/to/prediction.png)`  
+`![Prediction](user3.png)`  
 
 ---
+---
 
-## Video Demo
-[Watch Demo Video](https://drive.google.com/your-video-link)  
-
-*(Optional: embed a GIF or short clip of the app in action)*  
+## Conclusions & Recommendations
+- The app demonstrates a complete **machine learning workflow**, providing reliable predictions of loan default amounts.  
+- Key predictive features were identified using **Best Subset** and **Forward Stepwise Selection**, with strong evaluation metrics (RMSE, R²).  
+- **Recommendations:** deploy in real-world lending platforms, retrain models regularly, enhance feature engineering, provide explanation for predictions, and scale the app for large datasets.  
 
 ---
 
@@ -132,5 +135,9 @@ The app is deployed on **Streamlit Community Cloud**:
 ## Contact
 For questions or collaborations, feel free to reach out!  
 
-[![LinkedIn](https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&labelColor=&style=for-the-badge)](https://www.linkedin.com/in/yourprofile)  
-[![YouTube](https://img.shields.io/static/v1?message=Youtube&logo=youtube&label=&color=FF0000&logoColor=white&labelColor=&style=for-the-badge)](https://www.youtube.com/channel/yourchannel)
+[![LinkedIn](https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&labelColor=&style=for-the-badge)](https://https://www.linkedin.com/in/francis-afful-gyan-2b27a5153/)  
+
+
+## Thank You
+![Thank You](Thankyou.jpg)
+
