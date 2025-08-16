@@ -37,7 +37,9 @@ This project demonstrates a full **machine learning workflow for loan default pr
 - Interactive prediction for custom user input  
 
 ![Data Overview](img/Overview.png)  
+---
 ![Correlation Matrix](img/Correlation.png)
+---
 ![Correlation Matrix](img/Overview_2.png).
 
 ---
@@ -54,8 +56,11 @@ This project demonstrates a full **machine learning workflow for loan default pr
 - Normalize/standardize numerical variables  
 
 ![Preprocessing](img/Preprocessing.png)
+---
 ![Preprocessing](img/Boxplt.png)
+---
 ![Preprocessing](img/Categorial.png)
+---
 ![Preprocessing](img/Duplicates.png)
 
 ### 3. Feature Selection
@@ -76,9 +81,9 @@ This project demonstrates a full **machine learning workflow for loan default pr
 - Display predicted value dynamically
 
 ![Interactive Prediction](img/user1.png)
-
+---
 ![Interactive Prediction](img/User4.png)
-
+---
 ![Interactive Prediction](img/user3.png)
 
 ---
@@ -104,16 +109,16 @@ The app is deployed on **Streamlit Community Cloud**:
 ## Project Screenshots
 - **Landing Page / Home Screen**  
 ![Home](img/Home.png)  
-
+---
 - **Data Overview and Visualization**  
 ![Data Overview](img/Overview_2.png)  
-
+---
 - **Preprocessing Page**  
 ![Preprocessing](img/Preprocessing.png)  
-
+---
 - **Feature Selection**  
-![Feature Selection](img/Featureselection.png)  
-
+![Feature Selection](img/Featuremethod.png)  
+---
 - **Prediction Page**  
 ![Prediction](img/user3.png)  
 
