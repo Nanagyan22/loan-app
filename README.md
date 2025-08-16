@@ -1,7 +1,7 @@
 # Interactive Loan Default Prediction Web App Using Streamlit
 *Leveraging Machine Learning to Predict Loan Default Amounts for Better Financial Decision-Making*
 
-![Project Banner](path/to/banner-image.png)
+![Project Banner](banner-image.png)
 
 ---
 
@@ -13,7 +13,7 @@ This project uses **synthetic or anonymized data** for demonstration purposes. N
 ## Introduction
 The Loan Default Prediction Web App is a multi-page interactive application built with Streamlit. It allows users to **analyze datasets, preprocess data, train regression models, evaluate performance, and make custom predictions**. The app simulates real-world financial risk modeling and supports decision-making for banking and loan management.
 
-![Home Page](path/to/homepage-screenshot.png)
+![Home Page](Home.png)
 
 ---
 
@@ -37,8 +37,8 @@ This project demonstrates a full **machine learning workflow for loan default pr
 - Model training and evaluation  
 - Interactive prediction for custom user input  
 
-![Data Overview](path/to/data-overview.png)  
-![Correlation Matrix](path/to/correlation-matrix.png)
+![Data Overview](Overview.png)  
+![Correlation Matrix](Correlation.png)
 
 ---
 
@@ -53,20 +53,20 @@ This project demonstrates a full **machine learning workflow for loan default pr
 - Encode categorical variables  
 - Normalize/standardize numerical variables  
 
-![Preprocessing](path/to/preprocessing-screenshot.png)
+![Preprocessing](Preprocessing.png)
 
 ### 3. Feature Selection
 - **Best Subset Selection** and **Forward Stepwise Selection** are implemented.  
 - Outputs are compared to select optimal predictive features.
 
-![Feature Selection](path/to/feature-selection.png)
+![Feature Selection](Feature method.png)
 
 ### 4. Model Training & Evaluation
 - Train regression models using selected features  
 - Evaluate using **RMSE** and **R²**  
 - Visualize predicted vs actual values
 
-![Model Evaluation](path/to/predicted-vs-actual.png)
+![Model Evaluation](Evaluate.png)
 
 ### 5. Interactive Prediction
 - Users input custom feature values to predict loan default amount  
