@@ -103,19 +103,19 @@ The app is deployed on **Streamlit Community Cloud**:
 
 ## Project Screenshots
 - **Landing Page / Home Screen**  
-`![Home](Home.png)`  
+![Home](Home.png)  
 
 - **Data Overview and Visualization**  
-`![Data Overview](Overview_2.png)`  
+![Data Overview](Overview_2.png)  
 
 - **Preprocessing Page**  
-`![Preprocessing](Preprocessing.png)`  
+![Preprocessing](Preprocessing.png)  
 
 - **Feature Selection**  
-`![Feature Selection](Featureselection.png)`  
+![Feature Selection](Featureselection.png)  
 
 - **Prediction Page**  
-`![Prediction](user3.png)`  
+![Prediction](user3.png)  
 
 ---
 
